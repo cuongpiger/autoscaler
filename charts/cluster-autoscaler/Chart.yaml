@@ -3,12 +3,12 @@ appVersion: 1.23.0
 description: Scales Kubernetes worker nodes within autoscaling groups.
 engine: gotpl
 home: https://github.com/cuongpiger/autoscaler
-icon: https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png
+icon: https://github.com/cuongpiger/kubernetes/raw/master/logo/logo.png
 maintainers:
   - email: cuongdm8499@gmail.com
     name: Cuong. Duong Manh
 name: cluster-autoscaler
 sources:
-  - https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler
+  - https://github.com/cuongpiger/autoscaler/tree/dev/cluster-autoscaler-1.24
 type: application
-version: 9.18.0
+version: 1.0.0
