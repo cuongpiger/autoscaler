@@ -35,7 +35,6 @@ import (
 	"k8s.io/apiserver/pkg/server/mux"
 	"k8s.io/apiserver/pkg/server/routes"
 	utilfeature "k8s.io/apiserver/pkg/util/feature"
-	"k8s.io/autoscaler/cluster-autoscaler/cloudprovider"
 	cloudBuilder "k8s.io/autoscaler/cluster-autoscaler/cloudprovider/builder"
 	"k8s.io/autoscaler/cluster-autoscaler/config"
 	"k8s.io/autoscaler/cluster-autoscaler/core"
@@ -321,16 +320,6 @@ func buildAutoscaler() (core.Autoscaler, error) {
 	opts.Processors.PodListProcessor = core.NewFilterOutSchedulablePodListProcessor()
 
 	nodeInfoComparatorBuilder := nodegroupset.CreateGenericNodeInfoComparator
-	if autoscalingOptions.CloudProviderName == cloudprovider.AzureProviderName {
-		nodeInfoComparatorBuilder = nodegroupset.CreateAzureNodeInfoComparator
-	} else if autoscalingOptions.CloudProviderName == cloudprovider.AwsProviderName {
-		nodeInfoComparatorBuilder = nodegroupset.CreateAwsNodeInfoComparator
-	} else if autoscalingOptions.CloudProviderName == cloudprovider.GceProviderName {
-		nodeInfoComparatorBuilder = nodegroupset.CreateGceNodeInfoComparator
-	} else if autoscalingOptions.CloudProviderName == cloudprovider.ClusterAPIProviderName {
-		nodeInfoComparatorBuilder = nodegroupset.CreateClusterAPINodeInfoComparator
-	}
-
 	opts.Processors.NodeGroupSetProcessor = &nodegroupset.BalancingNodeGroupSetProcessor{
 		Comparator: nodeInfoComparatorBuilder(autoscalingOptions.BalancingExtraIgnoredLabels),
 	}
