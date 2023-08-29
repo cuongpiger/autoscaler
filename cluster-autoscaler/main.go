@@ -219,7 +219,7 @@ func createAutoscalingOptions() config.AutoscalingOptions {
 		},
 		CloudConfig:                        *cloudConfig,
 		CloudProviderName:                  *cloudProviderFlag,
-		NodeGroupAutoDiscovery:             *nodeGroupAutoDiscoveryFlag,
+		NodeGroupAutoDiscovery:             *nodeGroupAutoDiscoveryFlag, // [cuongdm] pass for cloud provider
 		MaxTotalUnreadyPercentage:          *maxTotalUnreadyPercentage,
 		OkTotalUnreadyCount:                *okTotalUnreadyCount,
 		ScaleUpFromZero:                    *scaleUpFromZero,
@@ -240,7 +240,7 @@ func createAutoscalingOptions() config.AutoscalingOptions {
 		MaxMemoryTotal:                     maxMemoryTotal,
 		MinMemoryTotal:                     minMemoryTotal,
 		GpuTotal:                           parsedGpuTotal,
-		NodeGroups:                         *nodeGroupsFlag,
+		NodeGroups:                         *nodeGroupsFlag, //[cuongdm] pass for cloud provider
 		ScaleDownDelayAfterAdd:             *scaleDownDelayAfterAdd,
 		ScaleDownDelayAfterDelete:          *scaleDownDelayAfterDelete,
 		ScaleDownDelayAfterFailure:         *scaleDownDelayAfterFailure,
@@ -317,11 +317,12 @@ func registerSignalHandlers(autoscaler core.Autoscaler) {
 	}()
 }
 
+// [cuongdm3] The start point to init cluster-autoscaler
 func buildAutoscaler(debuggingSnapshotter debuggingsnapshot.DebuggingSnapshotter) (core.Autoscaler, error) {
 	// Create basic config from flags.
-	autoscalingOptions := createAutoscalingOptions()
-	kubeClient := createKubeClient(getKubeConfig())
-	eventsKubeClient := createKubeClient(getKubeConfig())
+	autoscalingOptions := createAutoscalingOptions()      // read options from config
+	kubeClient := createKubeClient(getKubeConfig())       // create the kube-client
+	eventsKubeClient := createKubeClient(getKubeConfig()) // create the event kube-client
 
 	opts := core.AutoscalerOptions{
 		AutoscalingOptions:   autoscalingOptions,
@@ -353,13 +354,13 @@ func buildAutoscaler(debuggingSnapshotter debuggingsnapshot.DebuggingSnapshotter
 func run(healthCheck *metrics.HealthCheck, debuggingSnapshotter debuggingsnapshot.DebuggingSnapshotter) {
 	metrics.RegisterAll(*emitPerNodeGroupMetrics)
 
-	autoscaler, err := buildAutoscaler(debuggingSnapshotter)
+	autoscaler, err := buildAutoscaler(debuggingSnapshotter) // build the autoscaler object
 	if err != nil {
 		klog.Fatalf("Failed to create autoscaler: %v", err)
 	}
 
 	// Register signal handlers for graceful shutdown.
-	registerSignalHandlers(autoscaler)
+	registerSignalHandlers(autoscaler) // safely clean up the autoscaler when interrupt signal is received
 
 	// Start updating health check endpoint.
 	healthCheck.StartMonitoring()

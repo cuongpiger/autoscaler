@@ -307,6 +307,7 @@ func BuildMagnum(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDisco
 	var config io.ReadCloser
 
 	// Should be loaded with --cloud-config /etc/kubernetes/kube_openstack_config from master node.
+	// [cuongdm] panic if user not specify --cloud-config
 	if opts.CloudConfig != "" {
 		var err error
 		config, err = os.Open(opts.CloudConfig)
@@ -324,12 +325,12 @@ func BuildMagnum(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDisco
 		klog.Fatal("can not use both static node group discovery and node group auto discovery")
 	}
 
-	manager, err := createMagnumManager(config, do, opts)
+	manager, err := createMagnumManager(config, do, opts) // create the manager
 	if err != nil {
 		klog.Fatalf("Failed to create magnum manager: %v", err)
 	}
 
-	provider, err := buildMagnumCloudProvider(manager, rl)
+	provider, err := buildMagnumCloudProvider(manager, rl) // create the magnum provider
 	if err != nil {
 		klog.Fatalf("Failed to create magnum cloud provider: %v", err)
 	}
@@ -338,7 +339,7 @@ func BuildMagnum(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDisco
 	provider.clusterUpdateLock = &clusterUpdateLock
 
 	// Handle initial node group discovery.
-	if do.StaticDiscoverySpecified() {
+	if do.StaticDiscoverySpecified() { // [cuongdm] the case of VNG-Cloud fell into this condition
 		for _, nodegroupSpec := range do.NodeGroupSpecs {
 			// Parse a node group spec in the form min:max:name
 			spec, err := dynamic.SpecFromString(nodegroupSpec, scaleToZeroSupported)

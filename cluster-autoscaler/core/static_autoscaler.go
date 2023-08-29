@@ -266,7 +266,7 @@ func (a *StaticAutoscaler) RunOnce(currentTime time.Time) errors.AutoscalerError
 
 	// Call CloudProvider.Refresh before any other calls to cloud provider.
 	refreshStart := time.Now()
-	err = a.AutoscalingContext.CloudProvider.Refresh()
+	err = a.AutoscalingContext.CloudProvider.Refresh() // [cuongdm] refresh node group here
 	metrics.UpdateDurationFromStart(metrics.CloudProviderRefresh, refreshStart)
 	if err != nil {
 		klog.Errorf("Failed to refresh cloud provider config: %v", err)

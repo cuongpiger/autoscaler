@@ -102,7 +102,7 @@ func initializeDefaultOptions(opts *AutoscalerOptions) error {
 		opts.ClusterSnapshot = simulator.NewBasicClusterSnapshot()
 	}
 	if opts.CloudProvider == nil {
-		opts.CloudProvider = cloudBuilder.NewCloudProvider(opts.AutoscalingOptions)
+		opts.CloudProvider = cloudBuilder.NewCloudProvider(opts.AutoscalingOptions) // [cuongdm] build the cloud provider here
 	}
 	if opts.ExpanderStrategy == nil {
 		expanderStrategy, err := factory.ExpanderStrategyFromStrings(strings.Split(opts.ExpanderNames, ","), opts.CloudProvider,
