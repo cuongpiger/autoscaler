@@ -325,12 +325,12 @@ func BuildMagnum(opts config.AutoscalingOptions, do cloudprovider.NodeGroupDisco
 		klog.Fatal("can not use both static node group discovery and node group auto discovery")
 	}
 
-	manager, err := createMagnumManager(config, do, opts) // create the manager
+	manager, err := createMagnumManager(config, do, opts) // [cuongdm] create the manager
 	if err != nil {
 		klog.Fatalf("Failed to create magnum manager: %v", err)
 	}
 
-	provider, err := buildMagnumCloudProvider(manager, rl) // create the magnum provider
+	provider, err := buildMagnumCloudProvider(manager, rl) // [cuongdm] create the magnum provider
 	if err != nil {
 		klog.Fatalf("Failed to create magnum cloud provider: %v", err)
 	}
