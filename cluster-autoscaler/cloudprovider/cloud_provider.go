@@ -28,62 +28,8 @@ import (
 )
 
 const (
-	// AzureProviderName gets the provider name of azure
-	AzureProviderName = "azure"
-	// AlicloudProviderName gets the provider name of alicloud
-	AlicloudProviderName = "alicloud"
-	// AwsProviderName gets the provider name of aws
-	AwsProviderName = "aws"
-	// BaiducloudProviderName gets the provider name of baiducloud
-	BaiducloudProviderName = "baiducloud"
-	// BizflyCloudProviderName gets the provider name of bizflycloud
-	BizflyCloudProviderName = "bizflycloud"
-	// BrightboxProviderName gets the provider name of brightbox
-	BrightboxProviderName = "brightbox"
-	// CherryServersProviderName gets the provider name of cherry servers
-	CherryServersProviderName = "cherryservers"
-	// CloudStackProviderName gets the provider name of cloudstack
-	CloudStackProviderName = "cloudstack"
-	// ClusterAPIProviderName gets the provider name of clusterapi
-	ClusterAPIProviderName = "clusterapi"
-	// DigitalOceanProviderName gets the provider name of digitalocean
-	DigitalOceanProviderName = "digitalocean"
-	// ExoscaleProviderName gets the provider name of exoscale
-	ExoscaleProviderName = "exoscale"
-	// GceProviderName gets the provider name of gce
-	GceProviderName = "gce"
-	// HetznerProviderName gets the provider name of hetzner
-	HetznerProviderName = "hetzner"
 	// MagnumProviderName gets the provider name of magnum
 	MagnumProviderName = "magnum"
-	// KamateraProviderName gets the provider name of kamatera
-	KamateraProviderName = "kamatera"
-	// KubemarkProviderName gets the provider name of kubemark
-	KubemarkProviderName = "kubemark"
-	// HuaweicloudProviderName gets the provider name of huaweicloud
-	HuaweicloudProviderName = "huaweicloud"
-	// IonoscloudProviderName gets the provider name of ionoscloud
-	IonoscloudProviderName = "ionoscloud"
-	// OracleCloudProviderName gets the provider name of oci
-	OracleCloudProviderName = "oci"
-	// OVHcloudProviderName gets the provider name of ovhcloud
-	OVHcloudProviderName = "ovhcloud"
-	// LinodeProviderName gets the provider name of linode
-	LinodeProviderName = "linode"
-	// ScalewayProviderName gets the provider name of scaleway
-	ScalewayProviderName = "scaleway"
-	// VultrProviderName gets the provider name of vultr
-	VultrProviderName = "vultr"
-	// PacketProviderName gets the provider name of packet
-	PacketProviderName = "packet"
-	// TencentcloudProviderName gets the provider name of tencentcloud
-	TencentcloudProviderName = "tencentcloud"
-	// ExternalGrpcProviderName gets the provider name of the external grpc provider
-	ExternalGrpcProviderName = "externalgrpc"
-	// CivoProviderName gets the provider name of civo
-	CivoProviderName = "civo"
-	// RancherProviderName gets the provider name of rancher
-	RancherProviderName = "rancher"
 )
 
 // CloudProvider contains configuration info and functions for interacting with
